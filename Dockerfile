@@ -8,12 +8,16 @@ ENV FIREBIRD_PASSWORD=admin123
 # Define o caminho correto do banco
 ENV FIREBIRD_DATABASE=/firebird/data/mydb.fdb
 
-# Cria o diretório do banco de dados e ajusta permissões
+# Garante que o diretório exista e seja gravável
 RUN mkdir -p /firebird/data && \
+    chown -R firebird:firebird /firebird/data && \
     chmod -R 777 /firebird/data
 
-# Define o entrypoint para criar o banco se não existir
-#CMD ["/usr/local/bin/docker-entrypoint.sh"]
+# Define o volume para persistência dos dados
+VOLUME ["/firebird/data"]
 
-# Expor a porta padrão do Firebird
-#EXPOSE 3050
+# Expõe a porta do Firebird para conexões externas
+EXPOSE 3050
+
+# Mantém o entrypoint original do Firebird
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
