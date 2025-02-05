@@ -13,7 +13,7 @@ RUN mkdir -p /firebird/data && \
     chmod -R 777 /firebird/data
 
 # Define o entrypoint para criar o banco se não existir
-CMD ["/usr/local/bin/docker-entrypoint.sh"]
+#CMD ["/usr/local/bin/docker-entrypoint.sh"]
 
 # Expor a porta padrão do Firebird
 #EXPOSE 3050
